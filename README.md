@@ -61,7 +61,7 @@ The backend is headless and uses:
 * [Express](https://expressjs.com/)
 
 # 4. Useful scripts
-After you `npm run install`, you can:
+After you `npm install`, you can:
 * Start the DEV mode of the frontend by executing `npm start`.
 * Start the REST API server by executing `npm run bootServer`.
     * Make sure your Node.js version is `>=10`.
