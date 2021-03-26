@@ -39,7 +39,7 @@ export default function CategoryPage() {
         .then(booksObj => setBooks(booksObj));
     }
     fetchBooks();
-  }, );
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -91,7 +91,7 @@ function BookCard(props) {
         const book = books[bookIndex];
 
         return (
-          <Card key={book.Title} className={classes.root}>
+          <Card key={book.Id} className={classes.root}>
             <CardContent>
               <Typography variant="h5" component="h2">
                 {book.Title}
