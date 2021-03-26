@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,8 +24,8 @@ const useStyles = makeStyles(theme => ({
   content: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 }));
 
 export default function CategoryPage() {
@@ -84,7 +85,6 @@ function BookCard(props) {
 
   const { books } = props;
 
-
   return (
     <>
       {Object.keys(books).map(bookIndex => {
@@ -113,3 +113,7 @@ function BookCard(props) {
     </>
   );
 }
+
+BookCard.propTypes = {
+  books: PropTypes.array.isRequired,
+};
