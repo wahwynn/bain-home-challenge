@@ -15,9 +15,9 @@ const cardStyles = makeStyles({
   root: {
     margin: 8,
     height: '100%',
+    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    display: 'flex',
   },
   title: {
     fontSize: 14,
@@ -57,7 +57,7 @@ export default function BookCard(props) {
                   component={Link}
                   to={`/book/details/${bookId}`}
                 >
-                  Book in detail
+                  Details
                 </Button>
               </CardActions>
             </Card>
