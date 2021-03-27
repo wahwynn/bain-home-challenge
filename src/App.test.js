@@ -18,7 +18,6 @@ const books = [
 ];
 const handlers = [
   rest.get('http://localhost:3000/api/books', async (req, res, ctx) => {
-    console.log('got here');
     return res(ctx.json(books));
   }),
 ];

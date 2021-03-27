@@ -54,7 +54,6 @@ export default function MainPage() {
   };
 
   const handleRemoveFromCart = (cartId) => {
-    console.log(cartId);
     setCartItems((prevCart) => {
       prevCart.splice(cartId, 1);
       return [...prevCart];

@@ -4,6 +4,7 @@
   "description": "Experimental App",
   "scripts": {
     "test": "react-scripts test",
+    "testCoverage": "react-scripts test --coverage --watchAll=false",
     "start": "parcel ./src/index.html",
     "bootServer": "node ./server/index.js",
     "build": "parcel build ./src/index.html",
