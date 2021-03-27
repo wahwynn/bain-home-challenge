@@ -6,6 +6,8 @@ import Badge from '@material-ui/core/Badge';
 import BookCard from './BookCard';
 import BookDetails from './BookDetails';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCart from './Cart';
@@ -34,20 +36,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CategoryPage() {
+export default function MainPage() {
   const classes = useStyles();
 
   const [books, setBooks] = useState([]);
+  const [loadingError, setLoadingError] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-
   useEffect(() => {
-    function fetchBooks() {
-      fetch('http://localhost:3000/api/books')
-        .then((res) => res.json())
-        .then((booksObj) => setBooks(booksObj));
-    }
-    fetchBooks();
+    fetch('http://localhost:3000/api/books')
+      .then((res) => res.json())
+      .then((booksObj) => setBooks(booksObj))
+      .catch((error) => setLoadingError(error));
   }, []);
+
   const handleAddToCart = (book) => {
     setCartItems((prevCart) => [...prevCart, book]);
   };
@@ -69,6 +70,47 @@ export default function CategoryPage() {
   };
 
   const getCartItems = () => cartItems.length;
+
+  // Only show the body contents if there was no loading error. This way we still have
+  // the page header loaded.
+  const pageBody = loadingError ? (
+    <Card className={classes.root}>
+      <CardContent>
+        <Typography variant="h5" component="h2">
+          Sorry, there was an error loading the page. 🙁 Please refresh the page
+          to try again.
+        </Typography>
+      </CardContent>
+    </Card>
+  ) : (
+    <Switch>
+      <Route path="/cart">
+        <ShoppingCart
+          cartItems={cartItems}
+          removeFromCart={handleRemoveFromCart}
+          clearAllCartItems={handleClearAllCartItems}
+          checkoutItems={handleCheckoutItems}
+        />
+      </Route>
+      <Route
+        path="/book/details/:bookId"
+        render={({ match }) => {
+          const bookId = match?.params?.bookId;
+          return (
+            <BookDetails
+              book={books.find((book) => book.Id === bookId)}
+              addToCart={handleAddToCart}
+            />
+          );
+        }}
+      />
+      <Route path="/">
+        <main className={classes.content}>
+          <BookCard books={books} />
+        </main>
+      </Route>
+    </Switch>
+  );
 
   return (
     <Router>
@@ -95,35 +137,7 @@ export default function CategoryPage() {
             </Button>
           </Toolbar>
         </AppBar>
-        <div className={classes.body}>
-          <Switch>
-            <Route path="/cart">
-              <ShoppingCart
-                cartItems={cartItems}
-                removeFromCart={handleRemoveFromCart}
-                clearAllCartItems={handleClearAllCartItems}
-                checkoutItems={handleCheckoutItems}
-              />
-            </Route>
-            <Route
-              path="/book/details/:bookId"
-              render={({ match }) => {
-                const bookId = match?.params?.bookId;
-                return (
-                  <BookDetails
-                    book={books.find((book) => book.Id === bookId)}
-                    addToCart={handleAddToCart}
-                  />
-                );
-              }}
-            />
-            <Route path="/">
-              <main className={classes.content}>
-                <BookCard books={books} />
-              </main>
-            </Route>
-          </Switch>
-        </div>
+        <div className={classes.body}>{pageBody}</div>
       </div>
     </Router>
   );
