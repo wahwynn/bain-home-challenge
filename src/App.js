@@ -6,10 +6,10 @@ import Badge from '@material-ui/core/Badge';
 import BookCard from './BookCard';
 import BookDetails from './BookDetails';
 import Button from '@material-ui/core/Button';
-import HomeIcon from '@material-ui/icons/Home';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCart from './Cart';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -83,14 +83,14 @@ export default function CategoryPage() {
               component={Link}
               to="/"
             >
-              <HomeIcon />
+              <HomeOutlinedIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
               Book Shop
             </Typography>
             <Button color="inherit" component={Link} to="/cart">
               <Badge badgeContent={getCartItems()} color="error">
-                <ShoppingCartIcon />
+                <ShoppingCartOutlinedIcon />
               </Badge>
             </Button>
           </Toolbar>

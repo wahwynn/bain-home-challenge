@@ -1,11 +1,11 @@
 import { BookType } from './common/PropTypes';
 import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import React from 'react';
-import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import RemoveShoppingCartOutlinedIcon from '@material-ui/icons/RemoveShoppingCartOutlined';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -45,6 +45,7 @@ export default function ShoppingCart({
             <TableCell className={classes.tableHead}>Item</TableCell>
             <TableCell className={classes.tableHead}>Title</TableCell>
             <TableCell className={classes.tableHead}>Author</TableCell>
+            <TableCell className={classes.tableHead}>Publisher</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -65,7 +66,7 @@ export default function ShoppingCart({
                     variant="contained"
                     color="secondary"
                     className={classes.button}
-                    startIcon={<DeleteIcon />}
+                    startIcon={<DeleteOutlinedIcon />}
                     onClick={() => removeFromCart(cartItemsIndex)}
                   >
                     Remove
@@ -76,16 +77,17 @@ export default function ShoppingCart({
                 </TableCell>
                 <TableCell>{cartItem.Title}</TableCell>
                 <TableCell>{cartItem.Author}</TableCell>
+                <TableCell>{cartItem.Publisher}</TableCell>
               </TableRow>
             );
           })}
           <TableRow key={'actions'}>
-            <TableCell colSpan={2}>
+            <TableCell colSpan={3}>
               <Button
                 size="small"
                 variant="contained"
                 color="secondary"
-                startIcon={<RemoveShoppingCartIcon />}
+                startIcon={<RemoveShoppingCartOutlinedIcon />}
                 onClick={clearAllCartItems}
               >
                 Remove All
@@ -97,7 +99,7 @@ export default function ShoppingCart({
                 size="small"
                 variant="contained"
                 color="primary"
-                startIcon={<ShoppingCartIcon />}
+                startIcon={<ShoppingCartOutlinedIcon />}
                 onClick={checkoutItems}
               >
                 Checkout

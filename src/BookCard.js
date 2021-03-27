@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
-import InfoIcon from '@material-ui/icons/Info';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -51,7 +51,7 @@ export default function BookCard(props) {
               <CardActions>
                 <Button
                   size="small"
-                  startIcon={<InfoIcon />}
+                  startIcon={<InfoOutlinedIcon />}
                   variant="contained"
                   component={Link}
                   to={`/book/details/${bookId}`}

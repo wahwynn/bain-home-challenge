@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutlined';
 import { BookType } from './common/PropTypes';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -18,7 +18,11 @@ const detailsStyles = makeStyles({
     justifyContent: 'space-between',
     display: 'flex',
   },
-  title: {
+  author: {
+    fontSize: 18,
+    marginBottom: 14,
+  },
+  details: {
     fontSize: 14,
   },
 });
@@ -32,7 +36,7 @@ export default function BookDetails({ book, addToCart }) {
       <Card key={bookId} className={classes.root}>
         <CardContent>
           <Typography variant="h5" component="h2">
-            Not Found!
+            Book &quot;{bookId}&quot; not found! 🙁
           </Typography>
         </CardContent>
       </Card>
@@ -44,19 +48,23 @@ export default function BookDetails({ book, addToCart }) {
         <Typography variant="h5" component="h2">
           {book.Title}
         </Typography>
+
         <Typography
-          className={classes.title}
-          color="textSecondary"
+          className={classes.author}
+          variant="body2"
+          component="p"
           gutterBottom
         >
           {book.Author}
         </Typography>
-        <Typography
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-        >
-          {book.Genre} - {book.SubGenre} - {book.Height} - {book.Publisher}
+        <Typography className={classes.details} color="textSecondary">
+          Publisher: {book.Publisher}
+          <br />
+          Height: {book.Height}
+          <br />
+          Genre: {book.Genre}
+          <br />
+          SubGenre: {book.SubGenre}
         </Typography>
       </CardContent>
       <CardActions>
@@ -65,7 +73,7 @@ export default function BookDetails({ book, addToCart }) {
           component={Link}
           to="/"
           variant="contained"
-          startIcon={<AddShoppingCartIcon />}
+          startIcon={<AddShoppingCartOutlinedIcon />}
           onClick={() => addToCart(book)}
         >
           Add To Cart
