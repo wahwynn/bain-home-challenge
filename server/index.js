@@ -1,12 +1,11 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const csv = require('csvtojson');
 const cors = require('cors');
 
 const server = express();
 
 //accept only JSON
-server.use(bodyParser.json());
+server.use(express.json());
 server.use(cors());
 
 // healthcheck API
