@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  card: {
-    margin: 1,
+  body: {
+    margin: 12,
   },
 }));
 
@@ -73,7 +73,7 @@ export default function CategoryPage() {
   return (
     <Router>
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <IconButton
               edge="start"
@@ -95,33 +95,35 @@ export default function CategoryPage() {
             </Button>
           </Toolbar>
         </AppBar>
-        <Switch>
-          <Route path="/cart">
-            <ShoppingCart
-              cartItems={cartItems}
-              removeFromCart={handleRemoveFromCart}
-              clearAllCartItems={handleClearAllCartItems}
-              checkoutItems={handleCheckoutItems}
+        <div className={classes.body}>
+          <Switch>
+            <Route path="/cart">
+              <ShoppingCart
+                cartItems={cartItems}
+                removeFromCart={handleRemoveFromCart}
+                clearAllCartItems={handleClearAllCartItems}
+                checkoutItems={handleCheckoutItems}
+              />
+            </Route>
+            <Route
+              path="/book/details/:bookId"
+              render={({ match }) => {
+                const bookId = match?.params?.bookId;
+                return (
+                  <BookDetails
+                    book={books.find((book) => book.Id === bookId)}
+                    addToCart={handleAddToCart}
+                  />
+                );
+              }}
             />
-          </Route>
-          <Route
-            path="/book/details/:bookId"
-            render={({ match }) => {
-              const bookId = match?.params?.bookId;
-              return (
-                <BookDetails
-                  book={books.find((book) => book.Id === bookId)}
-                  addToCart={handleAddToCart}
-                />
-              );
-            }}
-          />
-          <Route path="/">
-            <main className={classes.content}>
-              <BookCard books={books} />
-            </main>
-          </Route>
-        </Switch>
+            <Route path="/">
+              <main className={classes.content}>
+                <BookCard books={books} />
+              </main>
+            </Route>
+          </Switch>
+        </div>
       </div>
     </Router>
   );

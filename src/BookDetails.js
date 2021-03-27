@@ -13,7 +13,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const detailsStyles = makeStyles({
   root: {
-    margin: 8,
     height: '100%',
     flexDirection: 'column',
     justifyContent: 'space-between',

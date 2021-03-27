@@ -14,7 +14,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 
-const shoppingCartStyles = makeStyles({
+const shoppingCartStyles = makeStyles((theme) => ({
   root: {
     margin: 8,
     height: '100%',
@@ -22,8 +22,12 @@ const shoppingCartStyles = makeStyles({
   title: {
     fontSize: 14,
   },
-  table: {},
-});
+  tableHead: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+    fontWeight: 'bold',
+  },
+}));
 
 export default function ShoppingCart({
   cartItems,
@@ -34,13 +38,13 @@ export default function ShoppingCart({
   const classes = shoppingCartStyles();
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
+      <Table aria-label="simple table">
+        <TableHead className={classes.tableHead}>
           <TableRow>
-            <TableCell style={{ width: 8 }}></TableCell>
-            <TableCell>Item</TableCell>
-            <TableCell>Title</TableCell>
-            <TableCell>Author</TableCell>
+            <TableCell style={{ width: 12 }}></TableCell>
+            <TableCell className={classes.tableHead}>Item</TableCell>
+            <TableCell className={classes.tableHead}>Title</TableCell>
+            <TableCell className={classes.tableHead}>Author</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
