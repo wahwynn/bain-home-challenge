@@ -14,7 +14,7 @@ import ShoppingCart from './Cart';
 import BookCard from './BookCard';
 import BookDetails from './BookDetails';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -43,18 +43,18 @@ export default function CategoryPage() {
   useEffect(() => {
     function fetchBooks() {
       fetch('http://localhost:3000/api/books')
-        .then(res => res.json())
-        .then(booksObj => setBooks(booksObj));
+        .then((res) => res.json())
+        .then((booksObj) => setBooks(booksObj));
     }
     fetchBooks();
   }, []);
-  const handleAddToCart = book => {
-    setCartItems(prevCart => [...prevCart, book]);
+  const handleAddToCart = (book) => {
+    setCartItems((prevCart) => [...prevCart, book]);
   };
 
-  const handleRemoveFromCart = cartId => {
+  const handleRemoveFromCart = (cartId) => {
     console.log(cartId);
-    setCartItems(prevCart => {
+    setCartItems((prevCart) => {
       prevCart.splice(cartId, 1);
       return [...prevCart];
     });
@@ -110,7 +110,7 @@ export default function CategoryPage() {
               const bookId = match?.params?.bookId;
               return (
                 <BookDetails
-                  book={books.find(book => book.Id === bookId)}
+                  book={books.find((book) => book.Id === bookId)}
                   addToCart={handleAddToCart}
                 />
               );

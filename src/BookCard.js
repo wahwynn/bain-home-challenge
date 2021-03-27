@@ -30,7 +30,7 @@ export default function BookCard(props) {
 
   return (
     <Grid container spacing={3}>
-      {Object.keys(books).map(bookIndex => {
+      {Object.keys(books).map((bookIndex) => {
         const book = books[bookIndex];
         const bookId = book.Id;
 

@@ -51,7 +51,7 @@ export default function ShoppingCart({
               </TableCell>
             </TableRow>
           ) : null}
-          {Object.keys(cartItems).map(cartItemsIndex => {
+          {Object.keys(cartItems).map((cartItemsIndex) => {
             const cartItem = cartItems[cartItemsIndex];
             return (
               <TableRow key={cartItemsIndex}>
