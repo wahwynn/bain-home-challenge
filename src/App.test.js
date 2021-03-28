@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 
 import App from './App';
+import { ENDPOINTS } from './api';
 import React from 'react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
@@ -17,7 +18,7 @@ const books = [
   },
 ];
 const handlers = [
-  rest.get('http://localhost:3000/api/books', async (req, res, ctx) => {
+  rest.get(ENDPOINTS.books, async (req, res, ctx) => {
     return res(ctx.json(books));
   }),
 ];
@@ -38,7 +39,7 @@ test('renders book shop app', async () => {
 test('renders error page', async () => {
   jest.spyOn(console, 'error').mockImplementation(() => {});
   server.use(
-    rest.get('http://localhost:3000/api/books', (req, res, ctx) => {
+    rest.get(ENDPOINTS.books, (req, res, ctx) => {
       return res.once(
         ctx.status(500),
         ctx.json({ message: 'Internal server error' })
