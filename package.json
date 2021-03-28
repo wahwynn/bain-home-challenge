@@ -44,6 +44,7 @@
     "lint-staged": "^10.5.4",
     "msw": "^0.28.0",
     "parcel-bundler": "^1.12.4",
+    "parcel-plugin-static-files-copy": "^2.6.0",
     "prettier": "2.2.1",
     "react-scripts": "^4.0.3",
     "simple-git-hooks": "^2.2.0"
@@ -62,5 +63,8 @@
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/index.js"
     ]
+  },
+  "staticFiles": {
+    "staticPath": "public"
   }
 }

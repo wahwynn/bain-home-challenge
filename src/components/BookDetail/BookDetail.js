@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
 
 import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutlined';
 import { BookType } from '../../common/PropTypes';
@@ -7,8 +8,8 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import PropTypes from 'prop-types';
-import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import consts from '../../common/consts';
 import { makeStyles } from '@material-ui/core/styles';
 
 const detailsStyles = makeStyles({
@@ -28,6 +29,12 @@ const detailsStyles = makeStyles({
 });
 
 export default function BookDetail({ book, addToCart }) {
+  useEffect(() => {
+    if (book?.Title) {
+      document.title = `${consts.PAGE_TITLE} - ${book.Title}`;
+    }
+  }, []);
+
   let { bookId } = useParams();
   const classes = detailsStyles();
 

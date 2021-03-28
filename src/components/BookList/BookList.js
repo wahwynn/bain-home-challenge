@@ -1,3 +1,5 @@
+import React, { useEffect } from 'react';
+
 import { BookType } from '../../common/PropTypes';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -7,8 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import consts from '../../common/consts';
 import { makeStyles } from '@material-ui/core/styles';
 
 const bookListStyles = makeStyles({
@@ -25,6 +27,9 @@ const bookListStyles = makeStyles({
 
 export default function BookList({ books }) {
   const classes = bookListStyles();
+  useEffect(() => {
+    document.title = consts.PAGE_TITLE;
+  }, []);
 
   return (
     <Grid container spacing={3}>

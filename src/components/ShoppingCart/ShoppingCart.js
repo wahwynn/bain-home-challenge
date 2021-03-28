@@ -1,9 +1,12 @@
+import {} from '../../common/consts';
+
+import React, { useEffect } from 'react';
+
 import { BookType } from '../../common/PropTypes';
 import Button from '@material-ui/core/Button';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
-import React from 'react';
 import RemoveShoppingCartOutlinedIcon from '@material-ui/icons/RemoveShoppingCartOutlined';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import Table from '@material-ui/core/Table';
@@ -12,6 +15,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import consts from '../../common/consts';
 import { makeStyles } from '@material-ui/core/styles';
 
 const shoppingCartStyles = makeStyles((theme) => ({
@@ -36,6 +40,10 @@ export default function ShoppingCart({
   checkoutItems,
 }) {
   const classes = shoppingCartStyles();
+  useEffect(() => {
+    document.title = `${consts.PAGE_TITLE} - Shopping Cart`;
+  }, []);
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">

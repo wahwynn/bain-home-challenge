@@ -98,6 +98,8 @@ test('full workflow click through', async () => {
 
   // Wait for the list screen to load
   expect(await screen.findByText(/Goswami, Jaideva/i)).toBeInTheDocument();
+  // We are in the list screen
+  expect(document.title).toEqual('Book Shop');
 
   // Click the details button for a book
   node = screen.getByTestId('details-button-1');
@@ -105,6 +107,8 @@ test('full workflow click through', async () => {
 
   // Wait for details page to load
   expect(await screen.findByText(/Wiley/i)).toBeInTheDocument();
+  // We are in the details screen
+  expect(document.title).toEqual('Book Shop - Fundamentals of Wavelets');
 
   // Click the add to cart button
   node = screen.getByTestId('add-to-cart-button-1');
@@ -136,6 +140,8 @@ test('full workflow click through', async () => {
 
   // Wait for the return back to the list screen
   expect(await screen.findByText(/Checkout/i)).toBeInTheDocument();
+  // We are in the shopping cart screen
+  expect(document.title).toEqual('Book Shop - Shopping Cart');
 
   nodes = screen.getAllByText(/Remove/i);
   // Two books with remove buttons and the remove all button
