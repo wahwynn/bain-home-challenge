@@ -4,29 +4,10 @@ import { render, screen } from '@testing-library/react';
 import { ENDPOINTS } from './api';
 import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
+import { books } from './common/sampleBooks';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
-const books = [
-  {
-    Id: '1',
-    Title: 'Fundamentals of Wavelets',
-    Author: 'Goswami, Jaideva',
-    Genre: 'tech',
-    SubGenre: 'signal_processing',
-    Height: '228',
-    Publisher: 'Wiley',
-  },
-  {
-    Id: '2',
-    Title: 'Data Smart',
-    Author: 'Foreman, John',
-    Genre: 'tech',
-    SubGenre: 'data_science',
-    Height: '235',
-    Publisher: 'Wiley',
-  },
-];
 const handlers = [
   rest.get(ENDPOINTS.books, async (req, res, ctx) => {
     return res(ctx.json(books));
@@ -40,7 +21,7 @@ afterAll(() => server.close());
 
 test('renders book shop app', async () => {
   render(<App />);
-  expect(await screen.getByText(/Book Shop/i)).toBeInTheDocument();
+  expect(screen.getByText(/Book Shop/i)).toBeInTheDocument();
 
   // Expect a list of books
   expect(await screen.findByText(/Goswami, Jaideva/i)).toBeInTheDocument();
@@ -93,10 +74,10 @@ test('renders details page', () => {
   expect(screen.queryByText(/Data Smart/i)).not.toBeInTheDocument();
 });
 
-test('renders empty cart page', () => {
+test('renders cart page', () => {
   render(
     <MemoryRouter initialEntries={['/cart']}>
-      <BodyRoutes books cartItems={[]} />
+      <BodyRoutes books={books} cartItems={[]} />
     </MemoryRouter>
   );
 

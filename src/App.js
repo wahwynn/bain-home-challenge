@@ -60,7 +60,6 @@ export default function MainPage() {
   const [loadingError, setLoadingError] = useState(false);
   const [cartItems, setCartItems] = useLocalStorageState([]);
   useEffect(() => {
-    console.log(api.ENDPOINTS.books);
     fetch(api.ENDPOINTS.books)
       .then((res) => {
         if (res.ok) {

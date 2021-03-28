@@ -23,9 +23,8 @@ const cardStyles = makeStyles({
   },
 });
 
-export default function BookCard(props) {
+export default function BookCard({ books }) {
   const classes = cardStyles();
-  const { books } = props;
 
   return (
     <Grid container spacing={3}>
