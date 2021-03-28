@@ -63,6 +63,7 @@ export default function ShoppingCart({
               <TableRow key={cartItemsIndex}>
                 <TableCell align="right">
                   <Button
+                    data-testid={`remove-button-${cartItemsIndex}`}
                     size="small"
                     variant="contained"
                     color="secondary"
@@ -86,6 +87,7 @@ export default function ShoppingCart({
           <TableRow key={'actions'}>
             <TableCell colSpan={4}>
               <Button
+                data-testid={'remove-all-button'}
                 size="small"
                 variant="contained"
                 color="secondary"
@@ -98,6 +100,7 @@ export default function ShoppingCart({
 
             <TableCell colSpan={2} align="right">
               <Button
+                data-testid={'checkout-button'}
                 size="small"
                 variant="contained"
                 color="primary"

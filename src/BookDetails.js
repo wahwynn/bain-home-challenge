@@ -69,6 +69,7 @@ export default function BookDetails({ book, addToCart }) {
       </CardContent>
       <CardActions>
         <Button
+          data-testid={`add-to-cart-button-${bookId}`}
           size="small"
           component={Link}
           to="/"

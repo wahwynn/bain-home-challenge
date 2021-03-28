@@ -49,6 +49,7 @@ export default function BookCard({ books }) {
               </CardContent>
               <CardActions>
                 <Button
+                  data-testid={`details-button-${bookId}`}
                   size="small"
                   startIcon={<InfoOutlinedIcon />}
                   variant="contained"

@@ -56,5 +56,11 @@
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/index.js"
+    ]
   }
 }

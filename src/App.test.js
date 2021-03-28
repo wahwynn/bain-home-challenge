@@ -1,5 +1,5 @@
 import App, { BodyRoutes } from './App';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { ENDPOINTS } from './api';
 import { MemoryRouter } from 'react-router-dom';
@@ -84,4 +84,80 @@ test('renders cart page', () => {
   expect(screen.getByText(/checkout/i)).toBeInTheDocument();
   expect(screen.getByText(/remove all/i)).toBeInTheDocument();
   expect(screen.getByText(/Cart is Empty/i)).toBeInTheDocument();
+});
+
+test('full workflow click through', async () => {
+  /**
+   * Complete workflow test clicking all the buttons and checking the cart
+   */
+  const mockedAlert = jest.fn();
+  let node;
+  let nodes;
+
+  render(<App />);
+
+  // Wait for the list screen to load
+  expect(await screen.findByText(/Goswami, Jaideva/i)).toBeInTheDocument();
+
+  // Click the details button for a book
+  node = screen.getByTestId('details-button-1');
+  fireEvent.click(node);
+
+  // Wait for details page to load
+  expect(await screen.findByText(/Wiley/i)).toBeInTheDocument();
+
+  // Click the add to cart button
+  node = screen.getByTestId('add-to-cart-button-1');
+  fireEvent.click(node);
+
+  // Wait for the return back to the list screen
+  expect(await screen.findByText(/Data Smart/i)).toBeInTheDocument();
+
+  // See the item has been added to the cart
+  node = screen.getByTestId('cart-item-count-1');
+
+  // Click the details button for a book
+  node = screen.getByTestId('details-button-2');
+  fireEvent.click(node);
+
+  // Wait for details page to load
+  expect(await screen.findByText(/Wiley/i)).toBeInTheDocument();
+
+  // Click the add to cart button
+  node = screen.getByTestId('add-to-cart-button-2');
+  fireEvent.click(node);
+
+  // Wait for the return back to the list screen
+  expect(await screen.findByText(/Goswami, Jaideva/i)).toBeInTheDocument();
+
+  // See the item has been added to the cart
+  node = screen.getByTestId('view-cart');
+  fireEvent.click(node);
+
+  // Wait for the return back to the list screen
+  expect(await screen.findByText(/Checkout/i)).toBeInTheDocument();
+
+  nodes = screen.getAllByText(/Remove/i);
+  // Two books with remove buttons and the remove all button
+  expect(nodes.length).toEqual(3);
+
+  node = screen.getByTestId('remove-button-1');
+  fireEvent.click(node);
+
+  nodes = screen.getAllByText(/Remove/i);
+  // One book remaining and the remove all button
+  expect(nodes.length).toEqual(2);
+
+  node = screen.getByTestId('remove-all-button');
+  fireEvent.click(node);
+
+  nodes = screen.getAllByText(/Remove/i);
+  // One book remaining and the remove all button
+  expect(nodes.length).toEqual(1);
+
+  jest.spyOn(window, 'alert').mockImplementation(mockedAlert);
+  node = screen.getByTestId('checkout-button');
+  fireEvent.click(node);
+
+  expect(mockedAlert.mock.calls.length).toEqual(1);
 });

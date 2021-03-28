@@ -94,7 +94,7 @@ export default function MainPage() {
     alert('Checkout not implemented');
   };
 
-  const getCartItems = () => cartItems.length;
+  const cartItemCount = cartItems.length;
 
   // Only show the body contents if there was no loading error. This way we still have
   // the page header loaded.
@@ -129,8 +129,17 @@ export default function MainPage() {
             <Typography variant="h6" className={classes.title}>
               Book Shop
             </Typography>
-            <Button color="inherit" component={Link} to="/cart">
-              <Badge badgeContent={getCartItems()} color="error">
+            <Button
+              data-testid={'view-cart'}
+              color="inherit"
+              component={Link}
+              to="/cart"
+            >
+              <Badge
+                data-testid={`cart-item-count-${cartItemCount}`}
+                badgeContent={cartItemCount}
+                color="error"
+              >
                 <ShoppingCartOutlinedIcon />
               </Badge>
             </Button>
