@@ -36,17 +36,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Save the state to localStorage
+function useLocalStorageState(defaultValue, key) {
+  const [value, setValue] = useState(() => {
+    const localStorageValue = window.localStorage.getItem(key);
+    return localStorageValue !== null
+      ? JSON.parse(localStorageValue)
+      : defaultValue;
+  });
+  useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
+  return [value, setValue];
+}
+
 export default function MainPage() {
   const classes = useStyles();
 
   const [books, setBooks] = useState([]);
   const [loadingError, setLoadingError] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useLocalStorageState([]);
   useEffect(() => {
     fetch('http://localhost:3000/api/books')
+      .then((res) => {
+        if (res.ok) {
+          return res;
+        }
+        throw Error(res.statusText);
+      })
       .then((res) => res.json())
       .then((booksObj) => setBooks(booksObj))
-      .catch((error) => setLoadingError(error));
+      .catch((error) => {
+        console.error('fetch error', error);
+        setLoadingError(error);
+      });
   }, []);
 
   const handleAddToCart = (book) => {

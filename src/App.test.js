@@ -36,8 +36,15 @@ test('renders book shop app', async () => {
 });
 
 test('renders error page', async () => {
-  server.close();
   jest.spyOn(console, 'error').mockImplementation(() => {});
+  server.use(
+    rest.get('http://localhost:3000/api/books', (req, res, ctx) => {
+      return res.once(
+        ctx.status(500),
+        ctx.json({ message: 'Internal server error' })
+      );
+    })
+  );
   render(<App />);
   expect(screen.getByText(/Book Shop/i)).toBeInTheDocument();
 

@@ -42,10 +42,11 @@ export default function ShoppingCart({
         <TableHead className={classes.tableHead}>
           <TableRow>
             <TableCell style={{ width: 12 }}></TableCell>
-            <TableCell className={classes.tableHead}>Item</TableCell>
+            <TableCell className={classes.tableHead}>Item #</TableCell>
             <TableCell className={classes.tableHead}>Title</TableCell>
             <TableCell className={classes.tableHead}>Author</TableCell>
             <TableCell className={classes.tableHead}>Publisher</TableCell>
+            <TableCell className={classes.tableHead}>Book Id</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -78,11 +79,12 @@ export default function ShoppingCart({
                 <TableCell>{cartItem.Title}</TableCell>
                 <TableCell>{cartItem.Author}</TableCell>
                 <TableCell>{cartItem.Publisher}</TableCell>
+                <TableCell>{cartItem.Id}</TableCell>
               </TableRow>
             );
           })}
           <TableRow key={'actions'}>
-            <TableCell colSpan={3}>
+            <TableCell colSpan={4}>
               <Button
                 size="small"
                 variant="contained"
