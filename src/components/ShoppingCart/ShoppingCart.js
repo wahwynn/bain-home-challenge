@@ -1,4 +1,4 @@
-import { BookType } from './common/PropTypes';
+import { BookType } from '../../common/PropTypes';
 import Button from '@material-ui/core/Button';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import Paper from '@material-ui/core/Paper';

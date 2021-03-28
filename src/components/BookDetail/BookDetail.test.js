@@ -1,14 +1,14 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import BookDetails from './BookDetails';
+import BookDetail from './BookDetail';
 import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
-import { books } from './common/sampleBooks';
+import { books } from '../../common/sampleBooks';
 
 test('renders details page', () => {
   render(
     <MemoryRouter initialEntries={['']}>
-      <BookDetails book={books[0]} addToCart={() => {}} />
+      <BookDetail book={books[0]} addToCart={() => {}} />
     </MemoryRouter>
   );
 
@@ -28,7 +28,7 @@ test('renders details page', () => {
 test('renders details not found page', () => {
   render(
     <MemoryRouter initialEntries={['']}>
-      <BookDetails book={null} addToCart={() => {}} />
+      <BookDetail book={null} addToCart={() => {}} />
     </MemoryRouter>
   );
 
@@ -40,7 +40,7 @@ test('add to cart button', () => {
   const mockedAddToCart = jest.fn();
   render(
     <MemoryRouter initialEntries={['/book/details/1']}>
-      <BookDetails book={books[0]} addToCart={mockedAddToCart} />
+      <BookDetail book={books[0]} addToCart={mockedAddToCart} />
     </MemoryRouter>
   );
   const node = screen.getByText(/Add to Cart/i);

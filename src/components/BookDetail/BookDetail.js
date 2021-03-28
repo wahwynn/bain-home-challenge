@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 
 import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutlined';
-import { BookType } from './common/PropTypes';
+import { BookType } from '../../common/PropTypes';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -27,7 +27,7 @@ const detailsStyles = makeStyles({
   },
 });
 
-export default function BookDetails({ book, addToCart }) {
+export default function BookDetail({ book, addToCart }) {
   let { bookId } = useParams();
   const classes = detailsStyles();
 
@@ -84,7 +84,7 @@ export default function BookDetails({ book, addToCart }) {
   );
 }
 
-BookDetails.propTypes = {
+BookDetail.propTypes = {
   book: BookType,
   addToCart: PropTypes.func.isRequired,
 };

@@ -1,9 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import Cart from './Cart';
+import Cart from './ShoppingCart';
 import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
-import { books } from './common/sampleBooks';
+import { books } from '../../common/sampleBooks';
 
 test('renders cart page with items', () => {
   render(
@@ -59,7 +59,7 @@ test('remove button', () => {
   );
 
   const nodes = screen.getAllByText(/Remove/i);
-  // Two book remove and the remove all buttons = 3
+  // Two books with remove buttons and the remove all button
   expect(nodes.length).toEqual(3);
 
   const node = screen.getByTestId('remove-button-0');

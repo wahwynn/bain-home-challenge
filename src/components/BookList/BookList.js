@@ -1,4 +1,4 @@
-import { BookType } from './common/PropTypes';
+import { BookType } from '../../common/PropTypes';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -11,7 +11,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-const cardStyles = makeStyles({
+const bookListStyles = makeStyles({
   root: {
     height: '100%',
     display: 'flex',
@@ -23,8 +23,8 @@ const cardStyles = makeStyles({
   },
 });
 
-export default function BookCard({ books }) {
-  const classes = cardStyles();
+export default function BookList({ books }) {
+  const classes = bookListStyles();
 
   return (
     <Grid container spacing={3}>
@@ -67,6 +67,6 @@ export default function BookCard({ books }) {
   );
 }
 
-BookCard.propTypes = {
+BookList.propTypes = {
   books: PropTypes.arrayOf(BookType).isRequired,
 };

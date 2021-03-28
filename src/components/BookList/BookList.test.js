@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react';
 
-import BookCard from './BookCard';
+import BookList from './BookList';
 import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
-import { books } from './common/sampleBooks';
+import { books } from '../../common/sampleBooks';
 
 test('renders list page', () => {
   render(
     <MemoryRouter initialEntries={['/']}>
-      <BookCard books={books} />
+      <BookList books={books} />
     </MemoryRouter>
   );
 

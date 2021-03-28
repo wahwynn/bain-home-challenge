@@ -18,4 +18,6 @@ server.get(api.URLS.books, async (req, res) => {
 });
 
 //set port and log to the console
-server.listen(3000, () => console.log('server listening'));
+server.listen(api.PORT, () =>
+  console.log(`Server listening on port: ${api.PORT}`)
+);

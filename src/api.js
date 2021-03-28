@@ -2,7 +2,8 @@
  * Store api endpoint urls here.
  */
 
-const SERVER = 'http://localhost:3000';
+const PORT = 3000;
+const SERVER = `http://localhost:${PORT}`;
 const BASE_URL = '/api/v1';
 
 // Urls without the hostname needed for the node server
@@ -11,6 +12,7 @@ const URLS = {
 };
 
 module.exports = {
+  PORT: PORT,
   SERVER: SERVER,
   BASE_URL: BASE_URL,
   URLS: URLS,

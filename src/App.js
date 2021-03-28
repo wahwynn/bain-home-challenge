@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 
 import AppBar from '@material-ui/core/AppBar';
 import Badge from '@material-ui/core/Badge';
-import BookCard from './BookCard';
-import BookDetails from './BookDetails';
+import BookDetail from './components/BookDetail/BookDetail';
+import BookList from './components/BookList/BookList';
 import { BookType } from './common/PropTypes';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -12,7 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
-import ShoppingCart from './Cart';
+import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -176,7 +176,7 @@ export const BodyRoutes = ({
           render={({ match }) => {
             const bookId = match?.params?.bookId;
             return (
-              <BookDetails
+              <BookDetail
                 book={books.find((book) => book.Id === bookId)}
                 addToCart={handleAddToCart}
               />
@@ -185,7 +185,7 @@ export const BodyRoutes = ({
         />
         <Route exact path="/">
           <main className={classes.content}>
-            <BookCard books={books} />
+            <BookList books={books} />
           </main>
         </Route>
         <Route component={Error404Page} />
