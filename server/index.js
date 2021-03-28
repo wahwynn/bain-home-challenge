@@ -12,7 +12,7 @@ server.use(cors());
 // healthcheck API
 server.get('/api/ping', (req, res) => res.send('pong'));
 
-server.get(api.ENDPOINTS.books, async (req, res) => {
+server.get(api.URLS.books, async (req, res) => {
   const jsonBooks = await csv().fromFile('./books.csv');
   res.send(jsonBooks);
 });

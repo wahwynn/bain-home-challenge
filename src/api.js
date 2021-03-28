@@ -5,12 +5,16 @@
 const SERVER = 'http://localhost:3000';
 const BASE_URL = '/api/v1';
 
-const ENDPOINTS = {
-  books: `${SERVER}${BASE_URL}/books`,
+// Urls without the hostname needed for the node server
+const URLS = {
+  books: `${BASE_URL}/books`,
 };
 
 module.exports = {
   SERVER: SERVER,
   BASE_URL: BASE_URL,
-  ENDPOINTS: ENDPOINTS,
+  URLS: URLS,
+  ENDPOINTS: {
+    books: `${SERVER}${URLS.books}`,
+  },
 };

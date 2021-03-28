@@ -5,16 +5,18 @@ import AppBar from '@material-ui/core/AppBar';
 import Badge from '@material-ui/core/Badge';
 import BookCard from './BookCard';
 import BookDetails from './BookDetails';
+import { BookType } from './common/PropTypes';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import { ENDPOINTS } from './api';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import IconButton from '@material-ui/core/IconButton';
+import PropTypes from 'prop-types';
 import ShoppingCart from './Cart';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import api from './api';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -58,7 +60,8 @@ export default function MainPage() {
   const [loadingError, setLoadingError] = useState(false);
   const [cartItems, setCartItems] = useLocalStorageState([]);
   useEffect(() => {
-    fetch(ENDPOINTS.books)
+    console.log(api.ENDPOINTS.books);
+    fetch(api.ENDPOINTS.books)
       .then((res) => {
         if (res.ok) {
           return res;
@@ -97,42 +100,16 @@ export default function MainPage() {
   // Only show the body contents if there was no loading error. This way we still have
   // the page header loaded.
   const pageBody = loadingError ? (
-    <Card className={classes.root}>
-      <CardContent>
-        <Typography variant="h5" component="h2">
-          Sorry, there was an error loading the page. 🙁 Please refresh the page
-          to try again.
-        </Typography>
-      </CardContent>
-    </Card>
+    <ErrorLoadingPage />
   ) : (
-    <Switch>
-      <Route path="/cart">
-        <ShoppingCart
-          cartItems={cartItems}
-          removeFromCart={handleRemoveFromCart}
-          clearAllCartItems={handleClearAllCartItems}
-          checkoutItems={handleCheckoutItems}
-        />
-      </Route>
-      <Route
-        path="/book/details/:bookId"
-        render={({ match }) => {
-          const bookId = match?.params?.bookId;
-          return (
-            <BookDetails
-              book={books.find((book) => book.Id === bookId)}
-              addToCart={handleAddToCart}
-            />
-          );
-        }}
-      />
-      <Route path="/">
-        <main className={classes.content}>
-          <BookCard books={books} />
-        </main>
-      </Route>
-    </Switch>
+    <BodyRoutes
+      books={books}
+      cartItems={cartItems}
+      handleAddToCart={handleAddToCart}
+      handleClearAllCartItems={handleClearAllCartItems}
+      handleCheckoutItems={handleCheckoutItems}
+      handleRemoveFromCart={handleRemoveFromCart}
+    />
   );
 
   return (
@@ -163,5 +140,83 @@ export default function MainPage() {
         <div className={classes.body}>{pageBody}</div>
       </div>
     </Router>
+  );
+}
+
+export const BodyRoutes = ({
+  books,
+  cartItems,
+  handleAddToCart,
+  handleClearAllCartItems,
+  handleCheckoutItems,
+  handleRemoveFromCart,
+}) => {
+  const classes = useStyles();
+  return (
+    <>
+      <Switch>
+        <Route path="/cart">
+          <ShoppingCart
+            cartItems={cartItems}
+            removeFromCart={handleRemoveFromCart}
+            clearAllCartItems={handleClearAllCartItems}
+            checkoutItems={handleCheckoutItems}
+          />
+        </Route>
+        <Route
+          path="/book/details/:bookId"
+          render={({ match }) => {
+            const bookId = match?.params?.bookId;
+            return (
+              <BookDetails
+                book={books.find((book) => book.Id === bookId)}
+                addToCart={handleAddToCart}
+              />
+            );
+          }}
+        />
+        <Route exact path="/">
+          <main className={classes.content}>
+            <BookCard books={books} />
+          </main>
+        </Route>
+        <Route component={Error404Page} />
+      </Switch>
+    </>
+  );
+};
+BodyRoutes.propTypes = {
+  books: PropTypes.arrayOf(BookType).isRequired,
+  cartItems: PropTypes.arrayOf(BookType).isRequired,
+  handleAddToCart: PropTypes.func.isRequired,
+  handleClearAllCartItems: PropTypes.func.isRequired,
+  handleCheckoutItems: PropTypes.func.isRequired,
+  handleRemoveFromCart: PropTypes.func.isRequired,
+};
+
+export function ErrorLoadingPage() {
+  const classes = useStyles();
+  return (
+    <Card className={classes.root}>
+      <CardContent>
+        <Typography variant="h5" component="h2">
+          Sorry, there was an error loading the page. 🙁 Please refresh the page
+          to try again.
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+}
+
+export function Error404Page() {
+  const classes = useStyles();
+  return (
+    <Card className={classes.root}>
+      <CardContent>
+        <Typography variant="h5" component="h2">
+          Page not found. 🙁
+        </Typography>
+      </CardContent>
+    </Card>
   );
 }
